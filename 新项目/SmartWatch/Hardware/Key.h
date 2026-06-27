@@ -3,52 +3,56 @@
 
 #include "stm32f10x.h"
 
-/*********************参数宏定义*********************/
+/* 按键引脚定义 */
+#define KEY1_PIN			GPIO_Pin_2
+#define KEY2_PIN			GPIO_Pin_4
+#define KEY3_PIN			GPIO_Pin_6
+#define KEY_PORT			GPIOA
 
-/*用户配置区域*/
-/*添加按键：修改KEY_COUNT，在Key_ID_t枚举中增加ID，在Key.c配置表中增加一行*/
-#define KEY_COUNT				3			// 按键数量
-#define KEY_DEBOUNCE_MS			20			// 消抖时间（ms）
-#define KEY_LONG_PRESS_MS		1000		// 长按判定时间（ms）
+#define DEBOUNCE_TIME		20		// 消抖时间 (ms)
+#define LONGPRESS_TIME		1000	// 长按阈值 (ms)
 
-/*********************参数宏定义*********************/
+/* 按键事件类型 */
+typedef enum {
+	KEY_NONE = 0,
+	KEY_PRESS,		// 按下（消抖确认后立即触发）
+	KEY_RELEASE,	// 短按释放（按下时长 < 长按阈值）
+	KEY_LONGPRESS	// 长按（按下时长 >= 长按阈值，不等释放即触发）
+} key_event_t;
+
+/* 按键状态机 */
+typedef enum {
+	KEY_STATE_FREE = 0,
+	KEY_STATE_DEBOUNCE,
+	KEY_STATE_PRESSED,
+	KEY_STATE_LONGPRESSED
+} key_state_t;
+
+/* 前向声明：同时声明 struct tag 和 typedef，打破 key_t ↔ key_callback_t 循环引用 */
+typedef struct key_t key_t;
+
+/* 回调类型：key_t 已前向声明，指针合法 */
+typedef void (*key_callback_t)(key_t *key, key_event_t event);
+
+/* 按键结构体（每个按键一个实例） */
+struct key_t {
+	key_state_t     state;
+	uint16_t        pin;
+	uint16_t        press_tick;		// 按下时刻的 tick
+	uint16_t        debounce_tick;		// 消抖起始 tick
+	key_callback_t  callback;		// 事件回调
+};
 
 
-/*********************类型定义*********************/
 
-/*按键ID枚举*/
-/*添加新按键时在此增加枚举值，值从1开始*/
-typedef enum
-{
-	KEY_ID_1 = 1,
-	KEY_ID_2 = 2,
-	KEY_ID_3 = 3,
-	// KEY_ID_4 = 4,		// 示例：添加第4个按键
-} Key_ID_t;
+/* 全局按键实例 */
+extern key_t key1, key2, key3;
 
-/*********************类型定义*********************/
-
-
-/*函数声明*********************/
-
-/*初始化函数*/
 void Key_Init(void);
-
-/*定时扫描函数（需由1ms定时中断调用）*/
-void Key_Tick(void);
-
-/*===== 任意键查询（推荐，一行搞定）=====*/
-
-/*任意按键按下 → 返回其ID，无事件返回0*/
-Key_ID_t Key_AnyPress(void);
-
-/*任意按键释放 → 返回其ID，无事件返回0*/
-Key_ID_t Key_AnyRelease(void);
-
-/*任意按键长按 → 返回其ID，无事件返回0*/
-Key_ID_t Key_AnyLongPress(void);
-
-/*********************函数声明*/
+void Key_Tick(void);					// 1ms 定时中断中调用
+void Key_Read(key_t *key);				// 单个按键状态机
+void Key_Scan(void);					// 主循环中调用，扫描全部按键
+void Key_BindCallback(key_t *key, key_callback_t cb);	// 单独绑定某个按键的回调
+void Key_EventHandler(key_t *key, key_event_t event);	// 默认事件处理（__weak，可在 main 中重写）
 
 #endif
-
