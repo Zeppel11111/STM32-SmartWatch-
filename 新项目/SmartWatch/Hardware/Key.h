@@ -28,20 +28,13 @@ typedef enum {
 	KEY_STATE_LONGPRESSED
 } key_state_t;
 
-/* 前向声明：同时声明 struct tag 和 typedef，打破 key_t ↔ key_callback_t 循环引用 */
-typedef struct key_t key_t;
-
-/* 回调类型：key_t 已前向声明，指针合法 */
-typedef void (*key_callback_t)(key_t *key, key_event_t event);
-
 /* 按键结构体（每个按键一个实例） */
-struct key_t {
+typedef struct {
 	key_state_t     state;
 	uint16_t        pin;
 	uint16_t        press_tick;		// 按下时刻的 tick
-	uint16_t        debounce_tick;		// 消抖起始 tick
-	key_callback_t  callback;		// 事件回调
-};
+	uint16_t        debounce_tick;	// 消抖起始 tick
+} key_t;
 
 
 
@@ -50,9 +43,7 @@ extern key_t key1, key2, key3;
 
 void Key_Init(void);
 void Key_Tick(void);					// 1ms 定时中断中调用
-void Key_Read(key_t *key);				// 单个按键状态机
-void Key_Scan(void);					// 主循环中调用，扫描全部按键
-void Key_BindCallback(key_t *key, key_callback_t cb);	// 单独绑定某个按键的回调
-void Key_EventHandler(key_t *key, key_event_t event);	// 默认事件处理（__weak，可在 main 中重写）
+void Key_Read(key_t *key);				// 单个按键状态机（ISR 中调用）
+void Key_EventHandler(key_t *key, key_event_t event);	// 按键事件处理（由 UI 层实现）
 
 #endif

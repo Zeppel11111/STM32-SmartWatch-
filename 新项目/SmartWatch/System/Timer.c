@@ -1,4 +1,5 @@
 #include "stm32f10x.h"                  // Device header
+#include "Key.h"
 
 void Timer_Init(void)
 {
@@ -29,13 +30,11 @@ void Timer_Init(void)
 	TIM_Cmd(TIM1, ENABLE);
 }
 
-/*
 void TIM1_UP_IRQHandler(void)
 {
 	if (TIM_GetITStatus(TIM1, TIM_IT_Update) == SET)
 	{
-		
+		Key_Tick();
 		TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
 	}
 }
-*/

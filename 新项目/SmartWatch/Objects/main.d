@@ -33,4 +33,6 @@
 .\objects\main.o: .\Hardware\OLED_Data.h
 .\objects\main.o: .\Hardware\LED.h
 .\objects\main.o: .\System\Timer.h
+.\objects\main.o: .\Software\UI_ct.h
 .\objects\main.o: .\Hardware\Key.h
+.\objects\main.o: .\System\MyRTC.h

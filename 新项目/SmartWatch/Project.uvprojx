@@ -336,7 +336,7 @@
               <MiscControls>--no-multibyte-chars</MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Software</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -670,6 +670,16 @@
               <FileType>5</FileType>
               <FilePath>.\System\Timer.h</FilePath>
             </File>
+            <File>
+              <FileName>MyRTC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\MyRTC.c</FilePath>
+            </File>
+            <File>
+              <FileName>MyRTC.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\System\MyRTC.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -739,6 +749,41 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Software</GroupName>
+          <Files>
+            <File>
+              <FileName>UI_ct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Software\UI_ct.c</FilePath>
+            </File>
+            <File>
+              <FileName>UI_ct.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Software\UI_ct.h</FilePath>
+            </File>
+            <File>
+              <FileName>UI_home.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Software\UI_home.c</FilePath>
+            </File>
+            <File>
+              <FileName>UI_home.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Software\UI_home.h</FilePath>
+            </File>
+            <File>
+              <FileName>UI_setting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Software\UI_setting.c</FilePath>
+            </File>
+            <File>
+              <FileName>UI_setting.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Software\UI_setting.h</FilePath>
             </File>
           </Files>
         </Group>
