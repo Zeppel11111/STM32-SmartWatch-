@@ -785,6 +785,16 @@
               <FileType>5</FileType>
               <FilePath>.\Software\UI_setting.h</FilePath>
             </File>
+            <File>
+              <FileName>UI_subpage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Software\UI_subpage.c</FilePath>
+            </File>
+            <File>
+              <FileName>UI_subpage.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Software\UI_subpage.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -300,6 +300,18 @@ void OLED_Init(void)
 }
 
 /**
+  * 函    数：OLED设置对比度（亮度）
+  * 参    数：contrast 对比度值，范围：0x00(最暗) ~ 0xFF(最亮)
+  * 返 回 值：无
+  * 说    明：SH1106 的 0x81 命令控制屏幕亮度，不是背光，是对比度
+  */
+void OLED_SetContrast(uint8_t contrast)
+{
+	OLED_WriteCommand(0x81);
+	OLED_WriteCommand(contrast);
+}
+
+/**
   * 函    数：OLED设置显示光标位置
   * 参    数：Page 指定光标所在的页，范围：0~7
   * 参    数：X 指定光标所在的X轴坐标，范围：0~127

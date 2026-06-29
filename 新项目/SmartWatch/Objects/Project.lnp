@@ -37,6 +37,7 @@
 ".\objects\ui_ct.o"
 ".\objects\ui_home.o"
 ".\objects\ui_setting.o"
+".\objects\ui_subpage.o"
 --strict --scatter ".\Objects\Project.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

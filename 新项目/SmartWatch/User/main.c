@@ -19,8 +19,10 @@ int main(void)
 	Timer_Init();
 	Key_Init();
 	MyRTC_Init();
+	UI_Init();			// 导航栈初始化（栈底 = 主页）
 	while (1)
 	{
 		UI_Run();		// 绘制当前页 + 刷新屏幕
+		Delay_ms(10);		// 限帧 ~100fps，让动画可见；去掉此句则满帧运行
 	}
 }

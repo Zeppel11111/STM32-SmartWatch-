@@ -32,5 +32,6 @@
 .\objects\ui_ct.o: .\Library\misc.h
 .\objects\ui_ct.o: Software\UI_home.h
 .\objects\ui_ct.o: Software\UI_setting.h
+.\objects\ui_ct.o: Software\UI_subpage.h
 .\objects\ui_ct.o: .\Hardware\OLED.h
 .\objects\ui_ct.o: .\Hardware\OLED_Data.h

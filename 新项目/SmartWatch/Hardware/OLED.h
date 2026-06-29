@@ -27,6 +27,9 @@ void OLED_Init(void);
 void OLED_Update(void);
 void OLED_UpdateArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
 
+/*对比度（亮度）控制*/
+void OLED_SetContrast(uint8_t contrast);	// 0x00(最暗) ~ 0xFF(最亮)
+
 /*显存控制函数*/
 void OLED_Clear(void);
 void OLED_ClearArea(int16_t X, int16_t Y, uint8_t Width, uint8_t Height);
